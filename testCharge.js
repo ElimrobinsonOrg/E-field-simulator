@@ -94,9 +94,10 @@ class TestCharge
   constructor(position, charge)
   {
     this.position = position;
-    this.velocity = createVector(0, 0);
+    this.velocity = createVector(-1, 0);
     this.acceleration = createVector(0, 0);
     this.opacity = 1;
+    
 
     this.moving = true;
     this.show = true;
@@ -133,20 +134,21 @@ class TestCharge
           ellipse(this.position.x, this.position.y, testChargeDiameter, testChargeDiameter);
         pop();
 
-        if (gameTestCharge != null)
-        {
-          if (gameTestCharge.moving == true)
-          {
+
+        //if (gameTestCharge != null)
+        //{
+          //if (gameTestCharge.moving == true)
+          //{
             push();
               noStroke();
-              fill(255)
+              //fill(255)
               for (var i = 0; i < this.trail.length; i++)
               {
-                ellipse(this.trail[i].x, this.trail[i].y, 2, 2);
+                ellipse(this.trail[i].x, this.trail[i].y, 5, 5);
               }
             pop();
-          }
-        }
+          //}
+        //}
         }
 
 
@@ -171,23 +173,19 @@ class TestCharge
         //this.opacity = constrain(this.opacity - 0.005, 0, 1);
       }
 
-      if (gameTestCharge != null)
-      {
-        if (gameTestCharge.moving == true)
-        {
+      //if (gameTestCharge != null)
+      //{
+        //if (gameTestCharge.moving == true)
+        //{
 
           this.frames++;
-          if (this.frames > 10)
+          if (this.frames > 3)
           {
             this.trail.push(createVector(this.position.x, this.position.y));
             this.frames = 0;
           }
-        }
-      }
-
-
-
-
+        //}
+      //}
     }
 
     this.checkWallCollision = function()

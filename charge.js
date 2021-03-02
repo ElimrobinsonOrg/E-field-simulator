@@ -60,11 +60,11 @@ class Charge
     this.x = x;
     this.y = y;
     this.position = createVector(x,y);
-    this.charge = charge;
+    this.charge = -5;
     this.selected = false;
     this.dragging = false;
     this.force = null;
-    this.slider = createSlider(-5, 5, charge, 1);
+    this.slider = createSlider(-25, 0, charge, 1);
 
     this.slider.style("zIndex", "999");
     this.slider.style("visibility", "hidden");
