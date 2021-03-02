@@ -100,15 +100,15 @@ class TestCharge
   var Yslider = document.getElementById("yVel");
   //output.innerHTML = slider.value; // Display the default slider value
   
-  var Xvel = Xslider.value;
+  var Xvel = parseInt(Xslider.value);
   console.log(Xvel);
-  var Yvel = Yslider.value;
+  var Yvel = parseInt(Yslider.value);
   console.log(Yvel);
 
-    var velVector = createVector(Xvel,Yvel);
+    var velVector = createVector(Xvel,-1*Yvel);
     console.log(velVector);
     this.position = position;
-    this.velocity = createVector(1,-1);
+    this.velocity = velVector;
     this.acceleration = createVector(0, 0);
     this.opacity = 1;
     
