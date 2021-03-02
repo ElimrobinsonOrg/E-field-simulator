@@ -4,6 +4,9 @@ var testCharges = [];
 //q = 5 micro coulombs;
 var testChargeCharge = 0.000005;
 
+
+
+
 function displayTestCharges()
 {
   if (createTestChargeCheckBox)
@@ -93,8 +96,19 @@ class TestCharge
 {
   constructor(position, charge)
   {
+  var Xslider = document.getElementById("xVel");
+  var Yslider = document.getElementById("yVel");
+  //output.innerHTML = slider.value; // Display the default slider value
+  
+  var Xvel = Xslider.value;
+  console.log(Xvel);
+  var Yvel = Yslider.value;
+  console.log(Yvel);
+
+    var velVector = createVector(Xvel,Yvel);
+    console.log(velVector);
     this.position = position;
-    this.velocity = createVector(-1, 0);
+    this.velocity = createVector(1,-1);
     this.acceleration = createVector(0, 0);
     this.opacity = 1;
     

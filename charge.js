@@ -61,6 +61,7 @@ class Charge
     this.y = y;
     this.position = createVector(x,y);
     this.charge = -5;
+    this.R = 0
     this.selected = false;
     this.dragging = false;
     this.force = null;
@@ -71,7 +72,6 @@ class Charge
     this.slider.addClass("slider");
     this.slider.input(sliderChanged);
     this.slider.changed(sliderChanged);
-
 
     this.display = function()
     {
@@ -93,22 +93,28 @@ class Charge
           stroke(color(0,0,0,255/2));
           this.slider.style("visibility", "hidden");
         }
-
-        if (this.charge > 0){fill("rgba(255,0,0,1)");}
-        else if (this.charge == 0){fill("rgba(85,85,85,0.75)");}
-        else {fill("rgba(0,0,255,1)");}
+        //Create adaptive color
+        this.R = this.charge/50*-1+.5
+        if (this.charge == 0){
+          fill("rgba(80,80,80, 1)");
+        }
+      
+        else{
+          fill("rgba(255,165,0,"+ this.R + ")");
+        }
         ellipse(this.x, this.y, chargeSize, chargeSize);
 
         textSize(16);
         fill("#ffffff");
         noStroke();
-        if (this.charge > 0)
+        if (this.charge == 0)
         {
-          text("+" + this.charge, this.x - ((this.charge.toString().length + 1.5) * 4), this.y + 7);
+          text(this.charge, this.x - ((this.charge.toString().length + 1.5) * 4)+6, this.y + 7);
         }
         else
         {
-          text(this.charge, this.x - ((this.charge.toString().length) * 4), this.y + 7);
+          //text(this.charge, this.x - ((this.charge.toString().length) * 4), this.y + 7);
+          text(this.charge*-1, this.x - ((this.charge.toString().length) * 4)+4, this.y + 7);
         }
       pop();
     }

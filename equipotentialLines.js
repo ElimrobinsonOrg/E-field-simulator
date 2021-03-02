@@ -42,20 +42,23 @@ function createEquipotentialLines()
   //stroke(255);
   strokeWeight(5);
   var mouseForce = voltageAtPoint(mouseX, mouseY);
-
   textSize(12);
-  if (mouseForce > 0)
-  {
-    stroke("rgb(255,0,0)");
+  var color = mouseForce*-1/25;
+  color = Math.trunc(color);
+  if (color>255){
+    color = 255;
   }
-  else if (mouseForce < 0)
+  //console.log(color);
+    if (mouseForce < 0)
   {
-    stroke("rgb(0,0,255)");
+    stroke("rgb("+color+",0,0)");
+    //stroke("rgb(25.5555,0,0)");
   }
   else
   {
     stroke(255);
   }
+
 
   point(mouseX,mouseY);
 
@@ -83,13 +86,14 @@ function createEquipotentialLines()
   for (var i = 0; i < showEquipotentialLinesAt.length; i++)
   {
     var mouseForce = voltageAtPoint(showEquipotentialLinesAt[i].x, showEquipotentialLinesAt[i].y);
-    if (mouseForce > 0)
+    
+    var color = mouseForce*-1/25;
+    color = Math.trunc(color);
+    //console.log(color);
+      if (mouseForce < 0)
     {
-      stroke("rgb(255,0,0)");
-    }
-    else if (mouseForce < 0)
-    {
-      stroke("rgb(0,0,255)");
+      stroke("rgb("+color+",0,0)");
+      //stroke("rgb(25.5555,0,0)");
     }
     else
     {

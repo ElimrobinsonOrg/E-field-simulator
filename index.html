@@ -173,7 +173,7 @@
          </tr>
          <tr>
            <td colspan="2"  class="doubleButton">
-             <button type="button" class="preset big" onclick="createPreset();testCharges=[];equiPoints = [];">Remove All Charges</button>
+             <button type="button" class="preset big" onclick="createPreset();testCharges=[];equiPoints = [];">Remove All Masses</button>
            </td>
          </tr>
 
@@ -195,21 +195,30 @@
          <tr>
            <td colspan="2">
              <input class="checkBox" type="checkbox" name="testCharge" id="testCharge" oninput="getDataFromMenu();testCharges = [];">
-            <label for="testCharge">Test Charge Mode</label>
+            <label for="testCharge">Test Mass Mode</label>
            </td>
          </tr>
 
          <tr>
            <td class="button" colspan="2">
-             <button type="button" class="preset big" onclick="select('#testCharge').checked(true);getDataFromMenu();createTestChargeMap();">Create Test Charge Map</button>
+             <button type="button" class="preset big" onclick="select('#testCharge').checked(true);getDataFromMenu();createTestChargeMap();">Create Test Mass Map</button>
            </td>
          </tr>
          <tr>
            <td class="button" colspan="2">
-             <button type="button" class="preset big" onclick="testCharges = [];">Clear Test Charges</button>
+             <button type="button" class="preset big" onclick="testCharges = [];">Clear Test Masses</button>
            </td>
          </tr>
 
+
+        <td class="Xslidecontainer">
+          <input type="range" min="-3" max="3" value="0" class="slider" id="xVel">
+        </td>
+
+        <tr><td class="Yslidecontainer">
+          <input type="range" min="-3" max="3" value="0" class="slider" id="yVel">
+        </td>
+        </tr>
 
 
          <!-- <tr>
