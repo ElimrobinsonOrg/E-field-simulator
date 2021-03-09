@@ -94,7 +94,7 @@
                    <input class="checkBox" type="checkbox" name="voltage" id="voltage" oninput="createDataFromMenu();" >
                  </td>
                  <td>
-                  <label for="voltage">Voltage</label>
+                  <label for="voltage">Gravitational Potential</label>
                  </td>
                </tr>
 
@@ -211,14 +211,17 @@
          </tr>
 
 
-        <td class="Xslidecontainer">
-          <input type="range" min="-3" max="3" value="0" class="slider" id="xVel">
+        <td class="Magslidecontainer">
+          <input type="range" min="0" max="5" value="0" class="slider" id="magnitude">
+          <label for="magnitude">magnitude</label>
         </td>
 
-        <tr><td class="Yslidecontainer">
-          <input type="range" min="-3" max="3" value="0" class="slider" id="yVel">
+        <tr><td class="Angslidecontainer">
+          <input type="range" min="-180" max="180" value="0" class="slider" id="angle">
+          <label for="angle">Angle</label>
         </td>
         </tr>
+        
 
 
          <!-- <tr>

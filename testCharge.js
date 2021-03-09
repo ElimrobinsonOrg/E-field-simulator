@@ -96,14 +96,18 @@ class TestCharge
 {
   constructor(position, charge)
   {
-  var Xslider = document.getElementById("xVel");
-  var Yslider = document.getElementById("yVel");
+  var magSlider = document.getElementById("magnitude");
+  var angSlider = document.getElementById("angle");
   //output.innerHTML = slider.value; // Display the default slider value
   
-  var Xvel = parseInt(Xslider.value);
-  console.log(Xvel);
-  var Yvel = parseInt(Yslider.value);
-  console.log(Yvel);
+  var magnitude = parseInt(magSlider.value);
+  var angle = parseInt(angSlider.value);
+  console.log(magnitude);
+  console.log(angle);
+  var Xvel = magnitude * cos(angle);
+  var Yvel = magnitude * sin(angle);
+  //console.log(Xvel);
+  //console.log(Yvel);
 
     var velVector = createVector(Xvel,-1*Yvel);
     console.log(velVector);

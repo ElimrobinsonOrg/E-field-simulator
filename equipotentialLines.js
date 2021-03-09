@@ -41,9 +41,23 @@ function createEquipotentialLines()
   push();
   //stroke(255);
   strokeWeight(5);
+  maxForce = 0;
+  for (var y = 0; y < height; y+=5)
+  {
+    for (var x = 0; x < width; x+=5)
+    {
+
+      var netForce = voltageAtPoint(x, y);
+      if (netForce<maxForce);
+      {
+        maxForce = netForce;
+      }
+  }
+  }
   var mouseForce = voltageAtPoint(mouseX, mouseY);
   textSize(12);
-  var color = mouseForce*-1/25;
+  var color = mouseForce/maxForce*25;
+  console.log(color);
   color = Math.trunc(color);
   if (color>255){
     color = 255;
@@ -51,7 +65,8 @@ function createEquipotentialLines()
   //console.log(color);
     if (mouseForce < 0)
   {
-    stroke("rgb("+color+",0,0)");
+    stroke("rgb("+color+","+color+","+color+")");
+    //stroke("rgb(0,0,0)");
     //stroke("rgb(25.5555,0,0)");
   }
   else
@@ -62,16 +77,15 @@ function createEquipotentialLines()
 
   point(mouseX,mouseY);
 
-  for (var y = 0; y < height; y+=5)
+  for (var y = 0; y < height; y+=10)
   {
-    for (var x = 0; x < width; x+=5)
+    for (var x = 0; x < width; x+=10)
     {
 
-      var netForce = voltageAtPoint(x, y);
+      netForce = voltageAtPoint(x, y);
       if ((netForce >= mouseForce * 0.95 && netForce <= mouseForce * 1.05) || (netForce <= mouseForce * 0.95 && netForce >= mouseForce * 1.05))
       {
         textSize(8);
-
         point(x,y);
         //equiPoints.push(createVector(x, y));
       }
@@ -87,12 +101,12 @@ function createEquipotentialLines()
   {
     var mouseForce = voltageAtPoint(showEquipotentialLinesAt[i].x, showEquipotentialLinesAt[i].y);
     
-    var color = mouseForce*-1/25;
+    var color = mouseForce/maxForce*25;
     color = Math.trunc(color);
     //console.log(color);
       if (mouseForce < 0)
     {
-      stroke("rgb("+color+",0,0)");
+      stroke("rgb("+color+","+color+","+color+")");
       //stroke("rgb(25.5555,0,0)");
     }
     else
@@ -108,6 +122,7 @@ function createEquipotentialLines()
         if ((netForce >= mouseForce * 0.95 && netForce <= mouseForce * 1.05) || (netForce <= mouseForce * 0.95 && netForce >= mouseForce * 1.05))
         {
           //console.log(map(voltageAtPoint(mouseX, mouseY)));
+          strokeWeight(7);
           point(x,y);
         }
       }
