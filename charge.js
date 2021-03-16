@@ -60,7 +60,7 @@ class Charge
     this.x = x;
     this.y = y;
     this.position = createVector(x,y);
-    this.charge = -5;
+    this.charge = -1 * charge;
     this.R = 0
     this.selected = false;
     this.dragging = false;

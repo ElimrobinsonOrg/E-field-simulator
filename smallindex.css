@@ -6,7 +6,7 @@ body
   width: 100%;
   overflow: hidden;
   overscroll-behavior: none;
-  background-color: black;
+  background-color: navy;
 
   -webkit-touch-callout: none; /* iOS Safari */
    -webkit-user-select: none; /* Safari */
@@ -60,7 +60,7 @@ div.popup
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(15,15,77,0.5);
     z-index: 9999;
     overflow-y: scroll;
     visibility: hidden;

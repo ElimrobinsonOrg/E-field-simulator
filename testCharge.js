@@ -94,7 +94,7 @@ function removeTestCharge(i)
 
 class TestCharge
 {
-  constructor(position, charge)
+  constructor(position, charge, Xvel, Yvel)
   {
   var magSlider = document.getElementById("magnitude");
   var angSlider = document.getElementById("angle");
@@ -102,14 +102,14 @@ class TestCharge
   
   var magnitude = parseInt(magSlider.value);
   var angle = parseInt(angSlider.value);
-  console.log(magnitude);
-  console.log(angle);
-  var Xvel = magnitude * cos(angle);
-  var Yvel = magnitude * sin(angle);
+  console.log(Xvel);
+  console.log(Yvel);
+  //var Xvel = magnitude * cos(angle);
+  //var Yvel = magnitude * sin(angle);
   //console.log(Xvel);
   //console.log(Yvel);
 
-    var velVector = createVector(Xvel,-1*Yvel);
+    var velVector = createVector(Xvel,Yvel);
     console.log(velVector);
     this.position = position;
     this.velocity = velVector;
@@ -146,7 +146,7 @@ class TestCharge
       if (this.show)
       {
         push();
-          stroke("rgba(0,0,0,0.5)");
+          stroke("rgba(15,15,77,0.5)");
           //this.color = "rgba(255,0,0," + this.opacity.toString() + ")";
           fill(this.color);
           ellipse(this.position.x, this.position.y, testChargeDiameter, testChargeDiameter);

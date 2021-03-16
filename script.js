@@ -1,7 +1,9 @@
 var gridSize = 25;
 var gameTestCharge;
 var looping = true;
-var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesCheckBox, showVoltageCheckBox, createTestChargeCheckBox, createGridCheckBox, createWallsCheckBox, snapChargeToGridCheckBox, showPopUp, fullscreen;
+var pressed = false;
+var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesCheckBox, showVoltageCheckBox, createTestChargeCheckBox, createGridCheckBox, createWallsCheckBox, snapChargeToGridCheckBox, showPopUp, fullscreen, mousex1,mousex2;
+
 
 // const k = 8.99 * Math.pow(10, 9) adjusted because all charges are in micro coulombs;
 const k = 8990;
@@ -29,6 +31,9 @@ function draw()
   displayDataFromMenu();
   displayCharges();
   //displayFrameRate();
+  if(pressed == true){
+    drawArrow(createVector(mousex1,mousey1),createVector(mouseX-mousex1,mouseY-mousey1),"white");
+  }
 }
 
 
@@ -153,13 +158,20 @@ function netForceAtPoint(position)
 
 
 
-
+function mousePressed(){
+  mousex1 = mouseX;
+  mousey1 = mouseY;
+  pressed = true;
+}
 
 
 
 
 function mouseReleased()
 {
+  pressed = false;
+  console.log(mousex1)
+  console.log(mousey1)
   if (mouseButton === LEFT && !createTestChargeCheckBox)
   {
     var chargeClicked;
@@ -190,7 +202,9 @@ function mouseReleased()
   else
   {
     //rightClick(false);
-    testCharges.push(new TestCharge(createVector(mouseX, mouseY), 0.000005));
+    var xvel = (mouseX-mousex1)/100
+    var yvel = (mouseY-mousey1)/100
+    testCharges.push(new TestCharge(createVector(mousex1, mousey1),0.000005,xvel,yvel));
   }
   rightClick(false);
 
@@ -205,7 +219,19 @@ function mouseReleased()
   }
 }
 
-
+function drawArrow(base, vec, myColor) {
+  push();
+  stroke(myColor);
+  strokeWeight(3);
+  fill(myColor);
+  translate(base.x, base.y);
+  line(0, 0, vec.x, vec.y);
+  rotate(vec.heading());
+  let arrowSize = 7;
+  translate(vec.mag() - arrowSize, 0);
+  triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+  pop();
+}
 
 
 
@@ -223,6 +249,7 @@ function floorToNearestGrid(number)
 
 
 
+
 function createPreset(kind)
 {
 
@@ -236,17 +263,18 @@ function createPreset(kind)
   {
     createCharge(center, 5);
   }
-  else if (kind == "dipole")
+  else if (kind == "box")
   {
-    createCharge(createVector(center.x - 75, center.y), -4);
-    createCharge(createVector(center.x + 75, center.y), 4);
+    createCharge(createVector(center.x - 150, center.y-150), 4);
+    createCharge(createVector(center.x + 150, center.y-150), 4);
+    createCharge(createVector(center.x - 150, center.y+150), 4);
+    createCharge(createVector(center.x + 150, center.y+150), 4);
   }
-  else if (kind == "square")
+  else if (kind == "LargeSmall")
   {
-    createCharge(createVector(center.x - 100, center.y - 99), 5);
+    createCharge(createVector(center.x - 100, center.y - 99), 20);
     createCharge(createVector(center.x + 100, center.y - 100), 5);
-    createCharge(createVector(center.x - 101, center.y + 100), 5);
-    createCharge(createVector(center.x + 100, center.y + 105), 5);
+
   }
   else if (kind == "shield")
   {
