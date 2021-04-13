@@ -9,7 +9,50 @@ var testChargeCharge = 0.000005;
 
 function displayTestCharges()
 {
-  if (createTestChargeCheckBox)
+  if (createTestChargeCheckBox)    this.move = function()
+  {
+    var force = netForceAtPoint(this.position);
+
+    if (force.mag() != Infinity && this.moving)
+    {
+     // F  = qE
+     // ma = qE
+     // a  = (qE)/m
+     // m would be 1
+     this.acceleration = force.mult(this.charge);
+     this.velocity.add(this.acceleration);
+     this.position.add(this.velocity);
+    }
+    else if (!this.moving)
+    {
+      //this.opacity = constrain(this.opacity - 0.005, 0, 1);
+    }
+
+    //if (gameTestCharge != null)
+    //{
+      //if (gameTestCharge.moving == true)
+      //{
+
+        this.frames++;
+        if (this.frames > 3)
+        {
+          this.trail.push(createVector(this.position.x, this.position.y));
+          this.frames = 0;
+        }
+      //}
+    //}
+  }
+
+  this.checkWallCollision = function()
+  {
+    for (var i = 0; i < walls.length; i++)
+    {
+      if (collideRectCircle(walls[i].x, walls[i].y, walls[i].width * gridSize, walls[i].height * gridSize, this.position.x, this.position.y, testChargeDiameter))
+      {
+        this.velocity = createVector(0, 0);
+      }
+    }
+  }
   {
     push();
       fill(255);
@@ -78,6 +121,7 @@ function createTestChargeMap()
   {
     for (var x = 0; x < width; x+=50)
     {
+      //console.log("NEW TEST CHARGE!")
       testCharges.push(new TestCharge(createVector(x, y), testChargeCharge));
     }
   }
@@ -100,17 +144,17 @@ class TestCharge
   var angSlider = document.getElementById("angle");
   //output.innerHTML = slider.value; // Display the default slider value
   
-  var magnitude = parseInt(magSlider.value);
-  var angle = parseInt(angSlider.value);
-  console.log(Xvel);
-  console.log(Yvel);
+  //var magnitude = parseInt(magSlider.value);
+  //var angle = parseInt(angSlider.value);
+  //console.log(Xvel);
+  //console.log(Yvel);
   //var Xvel = magnitude * cos(angle);
   //var Yvel = magnitude * sin(angle);
   //console.log(Xvel);
   //console.log(Yvel);
 
     var velVector = createVector(Xvel,Yvel);
-    console.log(velVector);
+    //console.log(velVector);
     this.position = position;
     this.velocity = velVector;
     this.acceleration = createVector(0, 0);

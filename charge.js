@@ -4,18 +4,29 @@ var snapChargeToGrid = false;
 
 function createCharge(position, charge)
 {
+  var magSlider = document.getElementById("magnitude");
+  var angSlider = document.getElementById("angle");
+  var magnitude = parseInt(magSlider.value);
+  var angle = parseInt(angSlider.value);
+  //console.log(Xvel);
+  //console.log(Yvel);
+  var Xvel = magnitude * cos(angle);
+  var Yvel = magnitude * sin(angle);
+  console.log(Xvel);
+  console.log(Yvel);
+  velocity = createVector(Xvel,Yvel);
   if (charge != null)
   {
-    charges.push(new Charge(position.x, position.y, charge))
+    charges.push(new Charge(position.x, position.y, charge,velocity))
   }
   else
   {
-    charges.push(new Charge(position.x, position.y, 0))
+    charges.push(new Charge(position.x, position.y, 0,velocity))
     charges[charges.length - 1].selected = true;
   }
 }
 
-function displayCharges()
+/* function displayCharges()
 {
   for (var i = 0; i < charges.length; i++)
   {
@@ -25,7 +36,7 @@ function displayCharges()
       createDataFromMenu();
     }
   }
-}
+} */
 
 function removeCharge(i)
 {
@@ -53,9 +64,50 @@ function sliderChanged()
   createDataFromMenu();
 }
 
+function displayCharges()
+{
+  //console.log(charges)
+  {
+    for (var i = 0; i < charges.length; i++)
+    {
+      if(!pause){
+      charges[i].frames++;
+      if (charges[i].frames > 3)
+      {
+        charges[i].trail.push(charges[i].position);
+        charges[i].frames = 0;
+      }
+    }
+      charges[i].display();
+      if (charges[i].dragging)
+      {
+        createDataFromMenu();
+      }
+      charges[i].move();
+      
+
+      }
+    }
+  }
+
+function displayGamecharges()
+{
+  gamecharge.move();
+  gamecharge.display();
+  gamecharge.checkWallCollision();
+} 
+
+
+function removeCharge(i)
+{
+  //charges.splice(i,1);
+  Charges[i].show = false;
+  chargeDiameter[i] = null;
+}
+
 class Charge
 {
-  constructor(x, y, charge)
+  constructor(x, y, charge, velocity)
   {
     this.x = x;
     this.y = y;
@@ -65,7 +117,11 @@ class Charge
     this.selected = false;
     this.dragging = false;
     this.force = null;
-    this.slider = createSlider(-25, 0, charge, 1);
+    this.slider = createSlider(-250, 0, charge, 1);
+    this.velocity = velocity;
+    this.acceleration = createVector(0,0);
+    this.trail = [this.position];
+    this.frames=0;
 
     this.slider.style("zIndex", "999");
     this.slider.style("visibility", "hidden");
@@ -116,7 +172,43 @@ class Charge
           //text(this.charge, this.x - ((this.charge.toString().length) * 4), this.y + 7);
           text(this.charge*-1, this.x - ((this.charge.toString().length) * 4)+4, this.y + 7);
         }
+
+        //Display trail
+        pop();
+        push();
+        noStroke();
+        for (var i = 0; i < this.trail.length; i++){
+          console.log(i);
+          ellipse(this.trail[i].x, this.trail[i].y, 5, 5);
+          }
       pop();
+    }
+
+    this.move = function()
+    {
+      if(!pause){
+      var force = netForceAtPoint(this.position);
+      if (force.mag() != Infinity){
+      force = force.mult(-.00001);
+      this.acceleration = force.mult(this.charge);
+      this.velocity.add(this.acceleration);
+      this.position.add(this.velocity);
+      this.x = this.position.x;
+      this.y = this.position.y;
+      }
+    }
+       
+    }
+
+    this.checkWallCollision = function()
+    {
+      for (var i = 0; i < walls.length; i++)
+      {
+        if (collideRectCircle(walls[i].x, walls[i].y, walls[i].width * gridSize, walls[i].height * gridSize, this.position.x, this.position.y, chargeDiameter))
+        {
+          this.velocity = createVector(0, 0);
+        }
+      }
     }
   }
 }

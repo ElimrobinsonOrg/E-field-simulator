@@ -1,12 +1,14 @@
 var gridSize = 25;
 var gameTestCharge;
+var gameCharge;
+var pause = true;
 var looping = true;
 var pressed = false;
 var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesCheckBox, showVoltageCheckBox, createTestChargeCheckBox, createGridCheckBox, createWallsCheckBox, snapChargeToGridCheckBox, showPopUp, fullscreen, mousex1,mousex2;
 
 
 // const k = 8.99 * Math.pow(10, 9) adjusted because all charges are in micro coulombs;
-const k = 8990;
+const k = 899;
 
 
 function setup()
@@ -26,14 +28,15 @@ function setup()
 
 function draw()
 {
-  background(0);
+  background("rgba(15, 15, 77,.5)");
   moveKeys();
   displayDataFromMenu();
   displayCharges();
   //displayFrameRate();
-  if(pressed == true){
+  if(pressed){
+    if(createTestChargeCheckBox){
     drawArrow(createVector(mousex1,mousey1),createVector(mouseX-mousex1,mouseY-mousey1),"white");
-  }
+  }}
 }
 
 
@@ -122,10 +125,16 @@ function createDataFromMenu()
 
 function netForceAtPoint(position)
 {
+  if(pause){
+  }
+  else{
+  //console.log(charges[0].position.x)
   for (var charge of charges)
   {
     var chargePosition = createVector(charge.position.x, charge.position.y);
-
+    if (!((chargePosition.x==position.x)&&(chargePosition.y==position.y))){
+      //console.log("b" + position);
+      //console.log("a" + chargePosition);
     //F = KQ / (r^2)
     var kq = charge.charge  * k;
     var r = p5.Vector.dist(position, chargePosition) / gridSize;
@@ -138,6 +147,12 @@ function netForceAtPoint(position)
 
     var forceVectors = createVector(forceX, forceY).mult(-1);
     charge.force = forceVectors;
+    }
+    else{
+      //console.log("fail");
+      charge.force = createVector(0,0)
+    }
+  }
   }
 
   prevoiusFinalVector = finalVector;
@@ -152,6 +167,7 @@ function netForceAtPoint(position)
   // {
   //   console.log("Infinity");
   // }
+  
   return finalVector;
 }
 
@@ -170,8 +186,8 @@ function mousePressed(){
 function mouseReleased()
 {
   pressed = false;
-  console.log(mousex1)
-  console.log(mousey1)
+  //console.log(mousex1)
+  //console.log(mousey1)
   if (mouseButton === LEFT && !createTestChargeCheckBox)
   {
     var chargeClicked;
@@ -227,7 +243,7 @@ function drawArrow(base, vec, myColor) {
   translate(base.x, base.y);
   line(0, 0, vec.x, vec.y);
   rotate(vec.heading());
-  let arrowSize = 7;
+  let arrowSize = 15;
   translate(vec.mag() - arrowSize, 0);
   triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
   pop();

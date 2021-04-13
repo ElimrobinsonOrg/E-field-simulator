@@ -57,7 +57,6 @@ function createEquipotentialLines()
   var mouseForce = voltageAtPoint(mouseX, mouseY);
   textSize(12);
   var color = mouseForce/maxForce*25;
-  console.log(color);
   color = Math.trunc(color);
   if (color>255){
     color = 255;
