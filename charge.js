@@ -2,9 +2,11 @@ var charges = [];
 var chargeSize = 40;
 var snapChargeToGrid = false;
 
-function createCharge(position, charge)
+function createCharge(positionX,positionY,mass,velocity)
 {
-  var magSlider = document.getElementById("magnitude");
+  var massSlider = document.getElementById("mass");
+  var mass2 = parseInt(massSlider.value);
+/*   var magSlider = document.getElementById("magnitude");
   var angSlider = document.getElementById("angle");
   var magnitude = parseInt(magSlider.value);
   var angle = parseInt(angSlider.value);
@@ -12,17 +14,17 @@ function createCharge(position, charge)
   //console.log(Yvel);
   var Xvel = magnitude * cos(angle);
   var Yvel = magnitude * sin(angle);
-  console.log(Xvel);
-  console.log(Yvel);
-  velocity = createVector(Xvel,Yvel);
-  if (charge != null)
+  //console.log(Xvel);
+  //console.log(Yvel);
+  velocity = createVector(Xvel,Yvel); */
+  if (mass == 0)
   {
-    charges.push(new Charge(position.x, position.y, charge,velocity))
+    charges.push(new Charge(positionX, positionY,mass2,velocity))
   }
   else
   {
-    charges.push(new Charge(position.x, position.y, 0,velocity))
-    charges[charges.length - 1].selected = true;
+    charges.push(new Charge(positionX, positionY,mass,velocity))
+    //charges[charges.length - 1].selected = true;
   }
 }
 
@@ -83,9 +85,32 @@ function displayCharges()
       {
         createDataFromMenu();
       }
+      if(charges[i].moving==true){
       charges[i].move();
+      }
       
-
+      let touchingCharge = false;
+      for (var a = 0; a < charges.length; a++)
+      {
+        if(i!=a){
+        var distance = p5.Vector.dist(charges[i].position, charges[a].position);
+        if (distance - (chargeSize/2) < chargeSize/2 && charges[a].charge != 0)
+        {
+          touchingCharge = true;
+        }
+        }
+      }
+      //console.log(touchingCharge)
+      if (touchingCharge)
+      {
+        charges[i].moving = false;
+        charges[i].velocity = createVector(0,0);
+        charges[i].acceleration = createVector(0,0);
+      }
+      else
+      {
+        charges[i].moving = true;
+      }
       }
     }
   }
@@ -97,13 +122,6 @@ function displayGamecharges()
   gamecharge.checkWallCollision();
 } 
 
-
-function removeCharge(i)
-{
-  //charges.splice(i,1);
-  Charges[i].show = false;
-  chargeDiameter[i] = null;
-}
 
 class Charge
 {
@@ -122,6 +140,8 @@ class Charge
     this.acceleration = createVector(0,0);
     this.trail = [this.position];
     this.frames=0;
+    this.show = true
+    this.chargeDiameter = 5;
 
     this.slider.style("zIndex", "999");
     this.slider.style("visibility", "hidden");
@@ -178,7 +198,7 @@ class Charge
         push();
         noStroke();
         for (var i = 0; i < this.trail.length; i++){
-          console.log(i);
+          //console.log(i);
           ellipse(this.trail[i].x, this.trail[i].y, 5, 5);
           }
       pop();

@@ -4,11 +4,15 @@ var gameCharge;
 var pause = true;
 var looping = true;
 var pressed = false;
+var doubled = false;
 var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesCheckBox, showVoltageCheckBox, createTestChargeCheckBox, createGridCheckBox, createWallsCheckBox, snapChargeToGridCheckBox, showPopUp, fullscreen, mousex1,mousex2;
+/* var centerX = center.x;
+var centerY = center.y; */
 
 
 // const k = 8.99 * Math.pow(10, 9) adjusted because all charges are in micro coulombs;
 const k = 899;
+//console.log(k);
 
 
 function setup()
@@ -33,12 +37,32 @@ function draw()
   displayDataFromMenu();
   displayCharges();
   //displayFrameRate();
+/*   var sumX = 0
+  var sumY = 0
+  var sumMass = 0
+  for (var i = charges.length - 1; i >= 0; i--){
+    sumX += charges[i].mass * charges[i].x
+    sumY += charges[i].mass * charges[i].x
+    sumMass += charges[i].massS
+  }
+  centerX = sumX/sumMass;
+  centerY = sumY/sumMass;
+  fill("rgba(255,0,0, 1)");
+  circle(centerX,centerY,40)
+  fill("rgba(255,255,255,1)");
+  */
   if(pressed){
-    if(createTestChargeCheckBox){
-    drawArrow(createVector(mousex1,mousey1),createVector(mouseX-mousex1,mouseY-mousey1),"white");
-  }}
+    var arrow = true;
+    for (var i = charges.length - 1; i >= 0; i--){
+      if(charges[i].dragging){
+        arrow=false;
+      }
+    }
+    if(arrow){
+      drawArrow(createVector(mousex1,mousey1),createVector(mouseX-mousex1,mouseY-mousey1),"white");
+    }
+  } 
 }
-
 
 
 function displayDataFromMenu()
@@ -206,21 +230,29 @@ function mouseReleased()
     {
       chargeClicked.selected = true;
     }
-
-
+    else{
+    
+      
+      var xvel = (mouseX-mousex1)/100
+      var yvel = (mouseY-mousey1)/100
+      var velocity = createVector(xvel,yvel)
+      if(mousex1<width-300){
+        createCharge(mousex1,mousey1,0,velocity)
+      }
+    }
 
     //rightClick(false);
   }
-  else if(!createTestChargeCheckBox)
+  else if (showEquipotentialLinesCheckBox)
   {
-    //rightClick(true);
+    showEquipotentialLinesAt.push(createVector(mouseX, mouseY));
   }
   else
   {
     //rightClick(false);
-    var xvel = (mouseX-mousex1)/100
-    var yvel = (mouseY-mousey1)/100
-    testCharges.push(new TestCharge(createVector(mousex1, mousey1),0.000005,xvel,yvel));
+   
+   
+    //charges.push(new Charge(mouseX, mouseY,50,velocity))
   }
   rightClick(false);
 
@@ -229,10 +261,7 @@ function mouseReleased()
     charges[i].dragging = false;
   }
 
-  if (showEquipotentialLinesCheckBox)
-  {
-    showEquipotentialLinesAt.push(createVector(mouseX, mouseY));
-  }
+
 }
 
 function drawArrow(base, vec, myColor) {
@@ -277,22 +306,20 @@ function createPreset(kind)
 
   if (kind == "single")
   {
-    createCharge(center, 5);
+    createCharge(center.x,center.y, 50, createVector(0,0));
   }
-  else if (kind == "box")
+  else if (kind == "Binary1")
   {
-    createCharge(createVector(center.x - 150, center.y-150), 4);
-    createCharge(createVector(center.x + 150, center.y-150), 4);
-    createCharge(createVector(center.x - 150, center.y+150), 4);
-    createCharge(createVector(center.x + 150, center.y+150), 4);
+    createCharge(center.x + 150, center.y,25,createVector(0,2));
+    createCharge(center.x - 150, center.y,25,createVector(0,-2));
   }
-  else if (kind == "LargeSmall")
+  else if (kind == "Binary2")
   {
-    createCharge(createVector(center.x - 100, center.y - 99), 20);
-    createCharge(createVector(center.x + 100, center.y - 100), 5);
+    createCharge(center.x + 150, center.y,50,createVector(0,4));
+    createCharge(center.x - 150, center.y,25,createVector(0,-4));
 
   }
-  else if (kind == "shield")
+/*   else if (kind == "shield")
   {
     var radius = 100;
     var times = 10;
@@ -321,7 +348,7 @@ function createPreset(kind)
       createCharge(createVector(center.x + (i * (chargeSize + 35)) - 150, center.y - 100 + i), 4);
       createCharge(createVector(center.x + (i * (chargeSize + 35)) - 150, center.y + 100 + i), -4);
     }
-  }
+  } */
   createDataFromMenu();
 }
 
@@ -430,6 +457,8 @@ function moveKeys()
 
 function doubleClicked()
 {
+  //Variable for drawing arrow in draw function
+  doubled =true
   if (!createTestChargeCheckBox)
   {
     var notTouching = true;
@@ -448,6 +477,7 @@ function doubleClicked()
 
     }
   }
+  doubled = false
 }
 
 

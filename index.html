@@ -149,10 +149,7 @@
 
          <tr>
            <td class="button">
-             <button type="button" class="preset" onclick="createPreset('single');">Single</button>
-           </td>
-           <td class="button">
-             <button type="button" class="preset" onclick="createPreset('box');">box</button>
+             <button type="button" class="preset" onclick="createPreset('Binary1');">Binary System</button>
            </td>
          </tr>
          <!-- <tr>
@@ -165,10 +162,7 @@
          </tr> -->
          <tr>
            <td class="button">
-             <button type="button" class="preset" onclick="createPreset('row');">Row</button>
-           </td>
-           <td class="button">
-             <button type="button" class="preset" onclick="createPreset('LargeSmall');">LargeSmall</button>
+             <button type="button" class="preset" onclick="createPreset('Binary2');">Binary System Different Masses</button>
            </td>
          </tr>
          <tr>
@@ -211,20 +205,14 @@
          </tr>
 
 
-        <td class="Magslidecontainer">
-          <input type="range" min="0" max="5" value="0" class="slider" id="magnitude">
-          <label for="magnitude">magnitude</label>
+        <td class="Massslidecontainer">
+          <input type="range" min="0" max="250" value="0" class="slider" id="mass">
+          <label for="mass">Mass</label>
         </td>
-
-        <tr><td class="Angslidecontainer">
-          <input type="range" min="-180" max="180" value="0" class="slider" id="angle">
-          <label for="angle">Angle</label>
-        </td>
-        </tr>
 
         <tr>
           <td class="button" colspan="2">
-            <button type="button" class="preset big" onclick="pause = false;">Play Functionality</button>
+            <button type="button" class="preset big" onclick="pause = !pause;">Play/Pause Functionality</button>
           </td>
         </tr>
 
