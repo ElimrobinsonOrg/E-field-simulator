@@ -76,6 +76,7 @@ function displayCharges()
       charges[i].frames++;
       if (charges[i].frames > 3)
       {
+        //adding trails to array
         charges[i].trail.push(charges[i].position);
         charges[i].frames = 0;
       }
@@ -159,48 +160,53 @@ class Charge
 
 
       push();
-        if (this.selected)
-        {
-          stroke(255);
-          this.slider.style("visibility", "visible");
-        }
-        else
-        {
-          stroke(color(0,0,0,255/2));
-          this.slider.style("visibility", "hidden");
-        }
-        //Create adaptive color
-        this.R = this.charge/50*-1+.5
-        if (this.charge == 0){
-          fill("rgba(80,80,80, 1)");
-        }
-      
-        else{
-          fill("rgba(255,165,0,"+ this.R + ")");
-        }
-        ellipse(this.x, this.y, chargeSize, chargeSize);
 
-        textSize(16);
-        fill("#ffffff");
-        noStroke();
-        if (this.charge == 0)
-        {
-          text(this.charge, this.x - ((this.charge.toString().length + 1.5) * 4)+6, this.y + 7);
-        }
-        else
-        {
-          //text(this.charge, this.x - ((this.charge.toString().length) * 4), this.y + 7);
-          text(this.charge*-1, this.x - ((this.charge.toString().length) * 4)+4, this.y + 7);
-        }
+      //Show slider if hovered by mouse or hide slider
+      if (this.selected)
+      {
+        stroke(255);
+        this.slider.style("visibility", "visible");
+      }
+      else
+      {
+        stroke(color(0,0,0,255/2));
+        this.slider.style("visibility", "hidden");
+      }
 
-        //Display trail
-        pop();
-        push();
-        noStroke();
-        for (var i = 0; i < this.trail.length; i++){
-          //console.log(i);
-          ellipse(this.trail[i].x, this.trail[i].y, 5, 5);
-          }
+      //Create adaptive color
+      this.R = this.charge/50*-1+.5
+
+      //Set Color - or set to gray if 0
+      if (this.charge == 0){
+        fill("rgba(80,80,80, 1)");
+      }
+      else{
+        fill("rgba(255,165,0,"+ this.R + ")");
+      }
+
+      ellipse(this.x, this.y, chargeSize, chargeSize);
+      textSize(16);
+      fill("#ffffff");
+      noStroke();
+
+      if (this.charge == 0)
+      {
+        text(this.charge, this.x - ((this.charge.toString().length + 1.5) * 4)+6, this.y + 7);
+      }
+      else
+      {
+        //text(this.charge, this.x - ((this.charge.toString().length) * 4), this.y + 7);
+        text(this.charge*-1, this.x - ((this.charge.toString().length) * 4)+4, this.y + 7);
+      }
+
+      //Display trail
+      pop();
+      noStroke();
+      for (var i = 0; i < this.trail.length; i++){
+        var posx = this.trail[i].x
+        var posy = this.trail[i].y
+        ellipse(posx, posy, 5, 5);
+      }
       pop();
     }
 
