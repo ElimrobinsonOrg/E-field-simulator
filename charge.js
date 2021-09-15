@@ -201,10 +201,16 @@ class Charge
 
       //Display trail
       pop();
+      push();
       noStroke();
+      fill("#ffffff");
+      console.log(this.trail.length);
       for (var i = 0; i < this.trail.length; i++){
         var posx = this.trail[i].x
         var posy = this.trail[i].y
+        console.log(i);
+        console.log(posx);
+        console.log(posy);
         ellipse(posx, posy, 5, 5);
       }
       pop();
