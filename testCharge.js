@@ -33,12 +33,6 @@ function displayTestCharges()
       //if (gameTestCharge.moving == true)
       //{
 
-        this.frames++;
-        if (this.frames > 3)
-        {
-          this.trail.push(createVector(this.position.x, this.position.y));
-          this.frames = 0;
-        }
       //}
     //}
   }
@@ -239,13 +233,14 @@ class TestCharge
       //{
         //if (gameTestCharge.moving == true)
         //{
-
-          this.frames++;
-          if (this.frames > 3)
-          {
-            this.trail.push(createVector(this.position.x, this.position.y));
-            this.frames = 0;
-          }
+          if(trails==true){
+            this.frames++;
+            if (this.frames > 5)
+            {
+              this.trail.push(createVector(this.position.x, this.position.y));
+              this.frames = 0;
+            }
+        }
         //}
       //}
     }

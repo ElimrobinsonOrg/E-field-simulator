@@ -5,6 +5,7 @@ var pause = true;
 var looping = true;
 var pressed = false;
 var doubled = false;
+var trails = false;
 var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesCheckBox, showVoltageCheckBox, createTestChargeCheckBox, createGridCheckBox, createWallsCheckBox, snapChargeToGridCheckBox, showPopUp, fullscreen, mousex1,mousex2;
 /* var centerX = center.x;
 var centerY = center.y; */
@@ -561,6 +562,8 @@ function mouseDragged()
   //
   // }
 }
+
+
 
 function displayGrid()
 {

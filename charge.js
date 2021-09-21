@@ -73,13 +73,6 @@ function displayCharges()
     for (var i = 0; i < charges.length; i++)
     {
       if(!pause){
-      charges[i].frames++;
-      if (charges[i].frames > 3)
-      {
-        //adding trails to array
-        charges[i].trail.push(charges[i].position);
-        charges[i].frames = 0;
-      }
     }
       charges[i].display();
       if (charges[i].dragging)
@@ -200,20 +193,19 @@ class Charge
       }
 
       //Display trail
-      pop();
-      push();
-      noStroke();
-      fill("#ffffff");
-      console.log(this.trail.length);
-      for (var i = 0; i < this.trail.length; i++){
-        var posx = this.trail[i].x
-        var posy = this.trail[i].y
-        console.log(i);
-        console.log(posx);
-        console.log(posy);
-        ellipse(posx, posy, 5, 5);
-      }
-      pop();
+      if(trails==true){
+        pop();
+        push();
+        noStroke();
+        fill("#ffffff");
+        //console.log(this.trail.length);
+        for (var i = 0; i < this.trail.length; i++){
+          var posx = this.trail[i].x
+          var posy = this.trail[i].y
+          ellipse(posx, posy, 5, 5);
+        }
+        pop();
+    }
     }
 
     this.move = function()
@@ -227,8 +219,18 @@ class Charge
       this.position.add(this.velocity);
       this.x = this.position.x;
       this.y = this.position.y;
+      console.log(trails);
+      if(trails==true){
+        this.frames++;
+            if (this.frames > 2);
+            {
+              this.trail.push(createVector(this.position.x, this.position.y));
+              this.frames = 0;
+            }
+        }
       }
     }
+
        
     }
 
