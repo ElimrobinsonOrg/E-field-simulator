@@ -116,9 +116,13 @@ function createTestChargeMap()
     for (var x = 0; x < width; x+=50)
     {
       //console.log("NEW TEST CHARGE!")
-      testCharges.push(new TestCharge(createVector(x, y), testChargeCharge));
+      testCharges.push(new TestCharge(createVector(x, y), testChargeCharge,0));
     }
   }
+}
+
+function createTestCharge(x,y,Xvel,Yvel){
+  testCharges.push(new TestCharge(createVector(x,y), testChargeCharge, Xvel,Yvel))
 }
 
 

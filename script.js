@@ -244,6 +244,35 @@ function mouseReleased()
 
     //rightClick(false);
   }
+
+  else if (mouseButton === LEFT && createTestChargeCheckBox){
+    var chargeClicked;
+    var mousePosition = createVector(mouseX, mouseY);
+    for (var i = charges.length - 1; i >= 0; i--)
+    {
+      charges[i].selected = false;
+      charges[i].dragging = false;
+      var distance = mousePosition.dist(charges[i].position);
+      if (distance < (chargeSize/2) && chargeClicked == null)
+      {
+        chargeClicked = charges[i];
+      }
+    }
+    if (chargeClicked != null && !chargeClicked.dragging)
+    {
+      chargeClicked.selected = true;
+    }
+    else{
+    
+      
+      var xvel = (mouseX-mousex1)/100
+      var yvel = (mouseY-mousey1)/100
+      var velocity = createVector(xvel,yvel)
+      if(mousex1<width-300){
+        createTestCharge(mousex1,mousey1,velocity)
+      }
+    }
+  }
   else if (showEquipotentialLinesCheckBox)
   {
     showEquipotentialLinesAt.push(createVector(mouseX, mouseY));
