@@ -340,8 +340,8 @@ function createPreset(kind)
   }
   else if (kind == "Binary1")
   {
-    createCharge(center.x + 150, center.y,25,createVector(0,2));
-    createCharge(center.x - 150, center.y,25,createVector(0,-2));
+    createCharge(center.x + 300, center.y,25,createVector(0,2));
+    createCharge(center.x - 300, center.y,25,createVector(0,-2));
   }
   else if (kind == "Binary2")
   {

@@ -197,12 +197,13 @@ class Charge
         pop();
         push();
         noStroke();
-        fill("#ffffff");
+        
         //console.log(this.trail.length);
         for (var i = 0; i < this.trail.length; i++){
+          fill("rgb(255,165,0)");
           var posx = this.trail[i].x
           var posy = this.trail[i].y
-          ellipse(posx, posy, 5, 5);
+          ellipse(posx, posy, 3, 3);
         }
         pop();
     }
@@ -222,7 +223,7 @@ class Charge
       console.log(trails);
       if(trails==true){
         this.frames++;
-            if (this.frames > 2);
+            if (this.frames > 5)
             {
               this.trail.push(createVector(this.position.x, this.position.y));
               this.frames = 0;
