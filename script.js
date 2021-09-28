@@ -203,6 +203,12 @@ function mousePressed(){
   mousex1 = mouseX;
   mousey1 = mouseY;
   pressed = true;
+
+  for (var i = charges.length - 1; i >= 0; i--)
+    {
+      charges[i].selected = false;
+      charges[i].dragging = false;
+    }
 }
 
 

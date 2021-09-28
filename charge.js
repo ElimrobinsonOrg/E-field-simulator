@@ -147,8 +147,9 @@ class Charge
     {
       if (this.selected)
       {
-        this.slider.position(this.x - 75, this.y + (chargeSize/2) + 10, "fixed");
-        this.charge = this.slider.value();
+        this.dragging=true;
+        //this.slider.position(this.x - 75, this.y + (chargeSize/2) + 10, "fixed");
+        //this.charge = this.slider.value();
       }
 
 
