@@ -4,8 +4,8 @@ var snapChargeToGrid = false;
 
 function createCharge(positionX,positionY,mass,velocity)
 {
-  var massSlider = document.getElementById("mass");
-  var mass2 = parseInt(massSlider.value);
+//   var massSlider = document.getElementById("mass");
+//   var mass2 = parseInt(massSlider.value);
 /*   var magSlider = document.getElementById("magnitude");
   var angSlider = document.getElementById("angle");
   var magnitude = parseInt(magSlider.value);
@@ -19,6 +19,14 @@ function createCharge(positionX,positionY,mass,velocity)
   velocity = createVector(Xvel,Yvel); */
   if (mass == 0)
   {
+    let strmass = prompt("Enter mass value","0");
+    if(strmass==null || strmass==""){
+      mass2 = 0;
+    }
+    else{
+    var mass2 = parseInt(strmass);
+    }
+    console.log(mass2);
     charges.push(new Charge(positionX, positionY,mass2,velocity))
   }
   else
