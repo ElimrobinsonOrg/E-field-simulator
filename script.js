@@ -36,7 +36,9 @@ function draw()
   background("rgba(15, 15, 77,.5)");
   moveKeys();
   displayDataFromMenu();
+  displayCoM();
   displayCharges();
+
   //displayFrameRate();
 /*   var sumX = 0
   var sumY = 0
@@ -65,6 +67,19 @@ function draw()
   } 
 }
 
+
+function displayCoM(){
+  var sumx = 0;
+  var sumy = 0;
+  for (var i = charges.length - 1; i >= 0; i--){
+    sumx += charges[i].x;
+    sumy += charges[i].y;
+    }
+  var xcom = sumx/charges.length;
+  var ycom = sumy/charges.length;
+  fill("rgb(255,0,0)");
+  ellipse(xcom,ycom,10,10);
+}
 
 function displayDataFromMenu()
 {
@@ -203,16 +218,13 @@ function mousePressed(){
   mousex1 = mouseX;
   mousey1 = mouseY;
   pressed = true;
-
+  //createCharge(mousex1,mousey1,1,0)
   for (var i = charges.length - 1; i >= 0; i--)
     {
       charges[i].selected = false;
       charges[i].dragging = false;
     }
 }
-
-
-
 
 function mouseReleased()
 {
@@ -238,13 +250,11 @@ function mouseReleased()
       chargeClicked.selected = true;
     }
     else{
-    
-      
       var xvel = (mouseX-mousex1)/100
       var yvel = (mouseY-mousey1)/100
       var velocity = createVector(xvel,yvel)
       if(mousex1<width-300){
-        createCharge(mousex1,mousey1,0,velocity)
+      createCharge(mousex1,mousey1,0,velocity)
       }
     }
 

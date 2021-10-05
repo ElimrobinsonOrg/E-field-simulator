@@ -20,7 +20,7 @@ function createCharge(positionX,positionY,mass,velocity)
   if (mass == 0)
   {
     let strmass = prompt("Enter mass value","0");
-    console.log(strmass);
+    //console.log(strmass);
     if(isNaN(strmass)|| !strmass){
       mass2 = 0;
     }
@@ -232,7 +232,6 @@ class Charge
       this.position.add(this.velocity);
       this.x = this.position.x;
       this.y = this.position.y;
-      console.log(trails);
       if(trails==true){
         this.frames++;
             if (this.frames > 5)
