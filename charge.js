@@ -20,13 +20,16 @@ function createCharge(positionX,positionY,mass,velocity)
   if (mass == 0)
   {
     let strmass = prompt("Enter mass value","0");
-    if(strmass==null || strmass==""){
+    console.log(strmass);
+    if(isNaN(strmass)|| !strmass){
       mass2 = 0;
     }
     else{
     var mass2 = parseInt(strmass);
     }
-    console.log(mass2);
+    if(mass2>50){
+      mass2=50;
+    }
     charges.push(new Charge(positionX, positionY,mass2,velocity))
   }
   else
