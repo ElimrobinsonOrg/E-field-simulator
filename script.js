@@ -36,8 +36,8 @@ function draw()
   background("rgba(15, 15, 77,.5)");
   moveKeys();
   displayDataFromMenu();
-  displayCoM();
   displayCharges();
+  displayCoM();
 
   //displayFrameRate();
 /*   var sumX = 0
