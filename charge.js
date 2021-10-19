@@ -27,8 +27,8 @@ function createCharge(positionX,positionY,mass,velocity)
     else{
     var mass2 = parseInt(strmass);
     }
-    if(mass2>50){
-      mass2=50;
+    if(mass2>100){
+      mass2=100;
     }
     charges.push(new Charge(positionX, positionY,mass2,velocity))
   }
@@ -226,8 +226,13 @@ class Charge
       if(!pause){
       var force = netForceAtPoint(this.position);
       if (force.mag() != Infinity){
-      force = force.mult(-.00001);
-      this.acceleration = force.mult(this.charge);
+      //What does this number represent
+      console.log(force);
+      force = force.mult(.0025);
+      console.log(force);
+      //this.acceleration = force.mult(this.charge);
+      console.log(this.acceleration)
+      this.acceleration = force;
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
       this.x = this.position.x;

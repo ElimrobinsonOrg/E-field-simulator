@@ -11,16 +11,16 @@ var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesChec
 var centerY = center.y; */
 
 
-// const k = 8.99 * Math.pow(10, 9) adjusted because all charges are in micro coulombs;
-const k = 899;
-//console.log(k);
+// const G = 6.67 * 10^-11 adjusted to assume all masses are in Gigagrams
+const G = 66.7;
+//console.log(G);
 
 
 function setup()
 {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
-  frameRate(60);
+  frameRate(300);
   fullscreen = false;
   showPopUp = false;
 
@@ -67,16 +67,18 @@ function draw()
   } 
 }
 
-
+//Center of Mass
 function displayCoM(){
   var sumx = 0;
   var sumy = 0;
+  var massSum = 0;
   for (var i = charges.length - 1; i >= 0; i--){
-    sumx += charges[i].x;
-    sumy += charges[i].y;
+    sumx += charges[i].x*charges[i].charge;
+    sumy += charges[i].y*charges[i].charge;
+    massSum += charges[i].charge;
     }
-  var xcom = sumx/charges.length;
-  var ycom = sumy/charges.length;
+  var xcom = sumx/massSum;
+  var ycom = sumy/massSum;
   fill("rgb(255,0,0)");
   ellipse(xcom,ycom,10,10);
 }
@@ -172,14 +174,14 @@ function netForceAtPoint(position)
   for (var charge of charges)
   {
     var chargePosition = createVector(charge.position.x, charge.position.y);
-    if (!((chargePosition.x==position.x)&&(chargePosition.y==position.y))){
+    if (!((chargePosition.x==position.x)||(chargePosition.y==position.y))){
       //console.log("b" + position);
       //console.log("a" + chargePosition);
     //F = KQ / (r^2)
-    var kq = charge.charge  * k;
+    var Gm = charge.charge  * G;
     var r = p5.Vector.dist(position, chargePosition) / gridSize;
     var rSquared = Math.pow(r,2);
-    var force = kq / rSquared;
+    var force = Gm / rSquared;
 
     var theta = chargePosition.sub(position).heading();
     var forceX = force * cos(theta);
@@ -361,8 +363,8 @@ function createPreset(kind)
   }
   else if (kind == "Binary2")
   {
-    createCharge(center.x + 150, center.y,50,createVector(0,4));
-    createCharge(center.x - 150, center.y,25,createVector(0,-4));
+    createCharge(center.x + 250, center.y,50,createVector(0,1));
+    createCharge(center.x - 250, center.y,25,createVector(0,-2));
 
   }
 /*   else if (kind == "shield")
@@ -421,7 +423,7 @@ function getDataFromMenu()
   showFieldVectorsCheckBox = select("#fieldVectors").checked();
   showEquipotentialLinesCheckBox = select("#equi").checked();
   showVoltageCheckBox = select("#voltage").checked();
-  createTestChargeCheckBox = select("#testCharge").checked();
+  //createTestChargeCheckBox = select("#testCharge").checked();
   createGridCheckBox = select("#createGrid").checked();
   //createWallsCheckBox = select("#walls").checked();
   snapChargeToGridCheckBox = select("#snapChargesToGrid").checked();

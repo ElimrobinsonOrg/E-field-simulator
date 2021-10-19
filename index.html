@@ -51,7 +51,8 @@
      <div class="three" onclick="toggleBurger()">
        <i class="fas fa-bars"></i>
      </div>
-     <div class="menu" id="menu" name="menu" style="right: 0px;">
+     <div class="menu" id="menu" name="menu">
+     <!-- <div class="menu" id="menu" name="menu" style="right: 0px;"> -->
 
 
        <table class="menu">
@@ -59,7 +60,7 @@
            <td colspan="2">
              <table class="options">
 
-
+              <!-- Functionality Box -->
               <tr>
                 <td>
                   <input class="checkBox" type="checkbox" name="playPause" id="playPause" oninput="pause = !pause" >
@@ -68,6 +69,7 @@
                  <label for="trails">Functionality</label>
                 </td>
               </tr>
+
 
               <tr>
                 <td>
@@ -97,7 +99,7 @@
                  </td>
                </tr>
 
-              
+        
                <tr>
                  <td>
                    <input class="checkBox" type="checkbox" name="equi" id="equi" oninput="createDataFromMenu();">
@@ -107,9 +109,6 @@
                  </td>
                 </tr>
           
-
-
-
                <tr>
                  <td>
                    <input class="checkBox" type="checkbox" name="voltage" id="voltage" oninput="createDataFromMenu();" >
@@ -154,17 +153,26 @@
 
          <tr>
           <td colspan="2">
-            Premade Configurations:
-            <br>
+            <div class="dropdown">
+            <button class="dropbtn">Presets</button>
+            <div class="dropdownContent">
+              <class="button">
+                <button type="button" class="preset" onclick="createPreset('Binary1');">Binary System</button>
+              <class="button">
+                <button type="button" class="preset" onclick="createPreset('single');">Single Mass</button>
+              <class="button">
+                <button type="button" class="preset" onclick="createPreset('Binary2');">Binary System Different Masses</button>
+            </div>
+          </div>
           </td>
          </tr>
 
-
-         <tr>
+         <!-- Presets comment out instead they go into the dropdown menu -->
+         <!-- <tr>
            <td class="button">
              <button type="button" class="preset" onclick="createPreset('Binary1');">Binary System</button>
            </td>
-         </tr>
+         </tr> -->
          <!-- <tr>
            <td class="button">
              <button type="button" class="preset" onclick="createPreset('square');">Square</button>
@@ -173,11 +181,11 @@
              <button type="button" class="preset" onclick="createPreset('shield');">Shield</button>
            </td>
          </tr> -->
-         <tr>
+         <!-- <tr>
            <td class="button">
              <button type="button" class="preset" onclick="createPreset('Binary2');">Binary System Different Masses</button>
            </td>
-         </tr>
+         </tr> -->
          <tr>
            <td colspan="2"  class="doubleButton">
              <button type="button" class="preset big" onclick="createPreset();testCharges=[];equiPoints = [];">Remove All Masses</button>
@@ -199,8 +207,8 @@
 
 
 
-
-         <tr>
+         <!-- Comment below is for test masses which were deemed not worth it -->
+         <!-- <tr>
            <td colspan="2">
              <input class="checkBox" type="checkbox" name="testCharge" id="testCharge" oninput="getDataFromMenu();testCharges = [];">
             <label for="testCharge">Test Mass Mode</label>
@@ -218,11 +226,12 @@
            </td>
          </tr>
 
-
         <td class="Massslidecontainer">
           <input type="range" min="1" max="250" value="1" class="slider" id="mass">
           <label for="mass">Mass</label>
-        </td>
+        </td> 
+                -->
+
 
 
 
