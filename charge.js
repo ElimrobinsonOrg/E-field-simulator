@@ -229,10 +229,9 @@ class Charge
       //What does this number represent
       console.log(force);
       force = force.mult(.0025);
-      console.log(force);
       //this.acceleration = force.mult(this.charge);
-      console.log(this.acceleration)
       this.acceleration = force;
+      console.log(this.acceleration);
       this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
       this.x = this.position.x;
