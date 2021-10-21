@@ -20,7 +20,7 @@ function setup()
 {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
-  frameRate(300);
+  frameRate(500);
   fullscreen = false;
   showPopUp = false;
 
