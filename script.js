@@ -164,7 +164,7 @@ function createDataFromMenu()
 }
 
 
-
+//massless force at point - when calculating acceleration this value is direct
 function netForceAtPoint(position)
 {
   if(pause){
@@ -209,7 +209,6 @@ function netForceAtPoint(position)
   // {
   //   console.log("Infinity");
   // }
-  
   return finalVector;
 }
 

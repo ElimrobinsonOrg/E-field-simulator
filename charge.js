@@ -226,14 +226,15 @@ class Charge
       if(!pause){
       var force = netForceAtPoint(this.position);
       if (force.mag() != Infinity){
-      //What does this number represent
-      console.log(force);
-      force = force.mult(.0025);
-      //this.acceleration = force.mult(this.charge);
-      this.acceleration = force;
+      force = force.mult(-.050);
+     
+      console.log(force)
+      //this line works based off the way netForceAtPoint creates force.
+      this.acceleration = force
       console.log(this.acceleration);
-      this.velocity.add(this.acceleration);
       this.position.add(this.velocity);
+      this.velocity.add(this.acceleration);
+      
       this.x = this.position.x;
       this.y = this.position.y;
       if(trails==true){
