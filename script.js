@@ -20,7 +20,7 @@ function setup()
 {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
-  frameRate(500);
+  frameRate(500000);
   fullscreen = false;
   showPopUp = false;
 
@@ -357,6 +357,7 @@ function createPreset(kind)
   }
   else if (kind == "Binary1")
   {
+    
     createCharge(center.x + 150, center.y,25,createVector(0,2));
     createCharge(center.x - 150, center.y,25,createVector(0,-2));
   }

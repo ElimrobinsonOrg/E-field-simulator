@@ -117,6 +117,9 @@ function displayCharges()
         charges[i].moving = true;
       }
       }
+    for (var i = 0; i < charges.length; i++)
+    {
+      charges[i].draw();}
     }
   }
 
@@ -134,6 +137,9 @@ class Charge
   {
     this.x = x;
     this.y = y;
+    this.holdx = x;
+    this.holdy =y;
+    this.holdPosition = createVector(x,y);
     this.position = createVector(x,y);
     this.charge = -1 * charge;
     this.R = 0
@@ -220,31 +226,39 @@ class Charge
         pop();
     }
     }
+    this.draw = function()
+    {
+    this.x = this.holdx
+    this.y = this.holdy
+    this.position = this.holdPosition
+    if(trails==true){
+      this.frames++;
+          if (this.frames > 10)
+          {
+            this.trail.push(createVector(this.position.x, this.position.y));
+            this.frames = 0;
+          }
+      }
+    }
 
     this.move = function()
+    
     {
+      for(var i=0;i<1;i++){
       if(!pause){
-      var force = netForceAtPoint(this.position);
+      var force = netForceAtPoint(this.holdPosition);
       if (force.mag() != Infinity){
-      force = force.mult(-.050);
+      force = force.mult(.0015);
      
-      console.log(force)
+  
       //this line works based off the way netForceAtPoint creates force.
       this.acceleration = force
-      console.log(this.acceleration);
-      this.position.add(this.velocity);
       this.velocity.add(this.acceleration);
-      
-      this.x = this.position.x;
-      this.y = this.position.y;
-      if(trails==true){
-        this.frames++;
-            if (this.frames > 5)
-            {
-              this.trail.push(createVector(this.position.x, this.position.y));
-              this.frames = 0;
-            }
-        }
+      this.holdPosition.add(this.velocity);
+   
+      this.holdx = this.holdPosition.x;
+      this.holdy = this.holdPosition.y;
+     
       }
     }
 
@@ -262,4 +276,5 @@ class Charge
       }
     }
   }
+}
 }
