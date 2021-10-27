@@ -248,14 +248,14 @@ class Charge
       if(!pause){
       var force = netForceAtPoint(this.holdPosition);
       if (force.mag() != Infinity){
+        //Scaling Factor (Arbitrary)
       force = force.mult(.0015);
      
-  
+      var timeStep = 1;
       //this line works based off the way netForceAtPoint creates force.
       this.acceleration = force
-      this.velocity.add(this.acceleration);
-      this.holdPosition.add(this.velocity);
-   
+      this.velocity.add(this.acceleration.mult(timeStep));
+      this.holdPosition.add(this.velocity.mult(timeStep));
       this.holdx = this.holdPosition.x;
       this.holdy = this.holdPosition.y;
      
