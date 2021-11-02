@@ -228,41 +228,42 @@ class Charge
     }
     this.draw = function()
     {
-    this.x = this.holdx
-    this.y = this.holdy
-    this.position = this.holdPosition
-    if(trails==true){
-      this.frames++;
-          if (this.frames > 10)
-          {
-            this.trail.push(createVector(this.position.x, this.position.y));
-            this.frames = 0;
-          }
+      //Update actual positions
+      this.x = this.holdx
+      this.y = this.holdy
+      this.position = this.holdPosition
+      //Draw Trails
+        this.frames++;
+        if (this.frames > 10)
+        {
+          this.trail.push(createVector(this.position.x, this.position.y));
+          this.frames = 0;
+        }
       }
-    }
 
     this.move = function()
-    
     {
       for(var i=0;i<1;i++){
-      if(!pause){
-      var force = netForceAtPoint(this.holdPosition);
-      if (force.mag() != Infinity){
-        //Scaling Factor (Arbitrary)
-      force = force.mult(.0015);
-     
-      var timeStep = 1;
-      //this line works based off the way netForceAtPoint creates force.
-      this.acceleration = force
-      this.velocity.add(this.acceleration.mult(timeStep));
-      this.holdPosition.add(this.velocity.mult(timeStep));
-      this.holdx = this.holdPosition.x;
-      this.holdy = this.holdPosition.y;
-     
-      }
-    }
+        if(!pause){
+          var force = netForceAtPoint(this.holdPosition);
+          if (force.mag() != Infinity){
+            //Scaling Factor (Arbitrary?)
+            force = force.mult(.0015);
+            var timeStep = 1;
+          
+            //Euler's Method
+        
+            this.acceleration = force
+            this.velocity.add(this.acceleration.mult(timeStep));
+            this.holdPosition.add(this.velocity.mult(timeStep));
+            this.holdx = this.holdPosition.x;
+            this.holdy = this.holdPosition.y;
 
-       
+            //Runge Kutta Method
+            //var a1 = 
+          }
+        }
+      }
     }
 
     this.checkWallCollision = function()
@@ -275,6 +276,5 @@ class Charge
         }
       }
     }
-  }
 }
 }

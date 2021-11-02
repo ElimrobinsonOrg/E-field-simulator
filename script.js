@@ -12,7 +12,7 @@ var centerY = center.y; */
 
 
 // const G = 6.67 * 10^-11 adjusted to assume all masses are in Gigagrams
-const G = 66.7;
+const G = 66.7430;
 //console.log(G);
 
 
@@ -357,14 +357,19 @@ function createPreset(kind)
   }
   else if (kind == "Binary1")
   {
-    
-    createCharge(center.x + 150, center.y,25,createVector(0,2));
-    createCharge(center.x - 150, center.y,25,createVector(0,-2));
+    var radius = 300
+    var mass = 25
+    var velocity = sqrt((G*mass)/(2*radius));
+    createCharge(center.x + radius/2, center.y,mass,createVector(0,velocity));
+    createCharge(center.x - radius/2, center.y,mass,createVector(0,-1*velocity));
   }
   else if (kind == "Binary2")
   {
-    createCharge(center.x + 250, center.y,50,createVector(0,1));
-    createCharge(center.x - 250, center.y,25,createVector(0,-2));
+    var radius = 300
+    var mass = 25
+    var velocity = sqrt((G*mass)/(3*radius));
+    createCharge(center.x + radius/3, center.y,mass*2,createVector(0,velocity));
+    createCharge(center.x - 2*radius/3, center.y,mass,createVector(0,-2*velocity));
 
   }
 /*   else if (kind == "shield")
