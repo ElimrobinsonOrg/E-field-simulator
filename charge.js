@@ -250,20 +250,18 @@ class Charge
           if (force.mag() != Infinity){
             //Scaling Factor (Arbitrary?)
             force = force.mult(.0015);
-            var timeStep = .5;
+            var timeStep = .1;
           
             //Euler's Method
         
             this.acceleration = force;
-            //var a = this.acceleration;
             var at = this.acceleration.mult(timeStep);
             this.velocity.add(at);
-            //var v = this.velocity;
-            console.log(this.velocity);
-            //var vt = this.v.mult(timeStep);
-            this.holdPosition.add(this.velocity);
-            // this.holdx = this.holdPosition.x;
-            // this.holdy = this.holdPosition.y;
+            //create dummy variable so we do not actually change velocity
+            //Best way
+            this.holdPosition.add(velocity.mult(timeStep));
+            //dividing by the timestep to adjust after multiplying
+            velocity.div(timeStep)
 
             //Runge Kutta Method
             //var a1 = 
