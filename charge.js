@@ -84,7 +84,7 @@ function displayCharges()
     for (var i = 0; i < charges.length; i++)
     {
       if(!pause){
-    }
+      }
       charges[i].display();
       if (charges[i].dragging)
       {
@@ -229,9 +229,10 @@ class Charge
     this.draw = function()
     {
       //Update actual positions
-      this.x = this.holdx
-      this.y = this.holdy
       this.position = this.holdPosition
+      this.x = this.position.x
+      this.y = this.position.y
+
       //Draw Trails
         this.frames++;
         if (this.frames > 10)
@@ -249,15 +250,20 @@ class Charge
           if (force.mag() != Infinity){
             //Scaling Factor (Arbitrary?)
             force = force.mult(.0015);
-            var timeStep = 1;
+            var timeStep = .5;
           
             //Euler's Method
         
-            this.acceleration = force
-            this.velocity.add(this.acceleration.mult(timeStep));
-            this.holdPosition.add(this.velocity.mult(timeStep));
-            this.holdx = this.holdPosition.x;
-            this.holdy = this.holdPosition.y;
+            this.acceleration = force;
+            //var a = this.acceleration;
+            var at = this.acceleration.mult(timeStep);
+            this.velocity.add(at);
+            //var v = this.velocity;
+            console.log(this.velocity);
+            //var vt = this.v.mult(timeStep);
+            this.holdPosition.add(this.velocity);
+            // this.holdx = this.holdPosition.x;
+            // this.holdy = this.holdPosition.y;
 
             //Runge Kutta Method
             //var a1 = 

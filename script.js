@@ -180,7 +180,9 @@ function netForceAtPoint(position)
     //F = KQ / (r^2)
     var Gm = charge.charge  * G;
     var r = p5.Vector.dist(position, chargePosition) / gridSize;
+    //console.log(r);
     var rSquared = Math.pow(r,2);
+    //Technically Field not the force on the charge
     var force = Gm / rSquared;
 
     var theta = chargePosition.sub(position).heading();
@@ -355,6 +357,7 @@ function createPreset(kind)
   {
     createCharge(center.x,center.y, 50, createVector(0,0));
   }
+  //Equal masses
   else if (kind == "Binary1")
   {
     var radius = 300
@@ -363,6 +366,7 @@ function createPreset(kind)
     createCharge(center.x + radius/2, center.y,mass,createVector(0,velocity));
     createCharge(center.x - radius/2, center.y,mass,createVector(0,-1*velocity));
   }
+  //Mass Ratio 2:1
   else if (kind == "Binary2")
   {
     var radius = 300
