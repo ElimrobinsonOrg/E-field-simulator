@@ -244,13 +244,15 @@ class Charge
 
     this.move = function()
     {
-      for(var i=0;i<1;i++){
+      for(var i=0;i<2;i++){
         if(!pause){
           var force = netForceAtPoint(this.holdPosition);
           if (force.mag() != Infinity){
             //Scaling Factor (Arbitrary?)
-            force = force.mult(.0015);
-            var timeStep = .1;
+            //console.log(force);
+            //force = force.mult(.0015);
+            console.log(force);
+            var timeStep = .2;
           
             //Euler's Method
         

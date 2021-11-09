@@ -11,9 +11,9 @@ var showFieldLinesCheckBox, showFieldVectorsCheckBox, showEquipotentialLinesChec
 var centerY = center.y; */
 
 
-// const G = 6.67 * 10^-11 adjusted to assume all masses are in Gigagrams
-const G = 66.7430;
-//console.log(G);
+// const G = 6.67 * 10^-11 
+const G = .0000000000667430;
+//const G = 6.67430;
 
 
 function setup()
@@ -178,13 +178,14 @@ function netForceAtPoint(position)
       //console.log("b" + position);
       //console.log("a" + chargePosition);
     //F = KQ / (r^2)
-    var Gm = charge.charge  * G;
+    var Gm = charge.charge * G * pow(10,26)
     var r = p5.Vector.dist(position, chargePosition) / gridSize;
-    //console.log(r);
+    r = r * pow(10,9);
     var rSquared = Math.pow(r,2);
+    
     //Technically Field not the force on the charge
     var force = Gm / rSquared;
-
+    //console.log(force);
     var theta = chargePosition.sub(position).heading();
     var forceX = force * cos(theta);
     var forceY = force * sin(theta);
@@ -211,6 +212,7 @@ function netForceAtPoint(position)
   // {
   //   console.log("Infinity");
   // }
+  console.log(finalVector);
   return finalVector;
 }
 
