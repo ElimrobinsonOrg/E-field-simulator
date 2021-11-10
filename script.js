@@ -12,8 +12,8 @@ var centerY = center.y; */
 
 
 // const G = 6.67 * 10^-11 
-const G = .0000000000667430;
-//const G = 6.67430;
+//const G = .0000000000667430;
+const G = 6.67430;
 
 
 function setup()
@@ -178,9 +178,9 @@ function netForceAtPoint(position)
       //console.log("b" + position);
       //console.log("a" + chargePosition);
     //F = KQ / (r^2)
-    var Gm = charge.charge * G * pow(10,26)
+    var Gm = charge.charge * G //* pow(10,26)
     var r = p5.Vector.dist(position, chargePosition) / gridSize;
-    r = r * pow(10,9);
+    r = r //* pow(10,9);
     var rSquared = Math.pow(r,2);
     
     //Technically Field not the force on the charge

@@ -244,15 +244,15 @@ class Charge
 
     this.move = function()
     {
-      for(var i=0;i<2;i++){
+      for(var i=0;i<1;i++){
         if(!pause){
           var force = netForceAtPoint(this.holdPosition);
           if (force.mag() != Infinity){
             //Scaling Factor (Arbitrary?)
             //console.log(force);
-            //force = force.mult(.0015);
+            force = force.mult(.0015);
             console.log(force);
-            var timeStep = .2;
+            var timeStep = .5;
           
             //Euler's Method
         
@@ -263,7 +263,7 @@ class Charge
             //Best way
             this.holdPosition.add(velocity.mult(timeStep));
             //dividing by the timestep to adjust after multiplying
-            velocity.div(timeStep)
+            velocity.div(timeStep);
 
             //Runge Kutta Method
             //var a1 = 
