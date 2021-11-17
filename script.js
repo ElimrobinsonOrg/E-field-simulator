@@ -34,12 +34,12 @@ function setup()
 function draw()
 {
   background("rgba(15, 15, 77,.5)");
-  moveKeys();
+  //moveKeys();
   displayDataFromMenu();
   displayCharges();
   displayCoM();
 
-  //displayFrameRate();
+  displayFrameRate();
 /*   var sumX = 0
   var sumY = 0
   var sumMass = 0

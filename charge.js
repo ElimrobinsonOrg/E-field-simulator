@@ -234,12 +234,12 @@ class Charge
       this.y = this.position.y
 
       //Draw Trails
-        this.frames++;
-        if (this.frames > 10)
-        {
-          this.trail.push(createVector(this.position.x, this.position.y));
-          this.frames = 0;
-        }
+        // this.frames++;
+        // if (this.frames > 10)
+        // {
+        //   this.trail.push(createVector(this.position.x, this.position.y));
+        //   this.frames = 0;
+        // }
       }
 
     this.move = function()
