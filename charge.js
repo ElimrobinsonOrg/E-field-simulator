@@ -250,7 +250,7 @@ class Charge
           if (force.mag() != Infinity){
             //Scaling Factor (Arbitrary?)
             //console.log(force);
-            force = force.mult(.0015);
+            force = force.mult(.0016);
             console.log(force);
             var timeStep = .5;
           
