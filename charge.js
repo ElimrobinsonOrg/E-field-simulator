@@ -244,7 +244,7 @@ class Charge
 
     this.move = function()
     {
-      for(var i=0;i<1;i++){
+      for(var i=0;i<500;i++){
         if(!pause){
           var force = netForceAtPoint(this.holdPosition);
           if (force.mag() != Infinity){
@@ -252,7 +252,7 @@ class Charge
             //console.log(force);
             force = force.mult(.0016);
             console.log(force);
-            var timeStep = .5;
+            var timeStep = .005;
           
             //Euler's Method
         
